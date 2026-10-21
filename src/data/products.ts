@@ -28,7 +28,7 @@ export const flavors = [
       ru: "Клубника · молоко · сливки",
       en: "Strawberry · milk · cream",
     },
-    image: "/assets/strawberry.webp",
+    image: `${import.meta.env.BASE_URL}assets/strawberry.webp`,
   },
   {
     id: "mango",
@@ -47,7 +47,7 @@ export const flavors = [
       ru: "Манго · банан · кокос",
       en: "Mango · banana · coconut",
     },
-    image: "/assets/mango.webp",
+    image: `${import.meta.env.BASE_URL}assets/mango.webp`,
   },
   {
     id: "matcha",
@@ -66,7 +66,7 @@ export const flavors = [
       ru: "Матча · овсяное молоко · ваниль",
       en: "Matcha · oat milk · vanilla",
     },
-    image: "/assets/matcha.webp",
+    image: `${import.meta.env.BASE_URL}assets/matcha.webp`,
   },
   {
     id: "blueberry",
@@ -85,7 +85,7 @@ export const flavors = [
       ru: "Черника · пломбир · молоко",
       en: "Blueberry · ice cream · milk",
     },
-    image: "/assets/blueberry.webp",
+    image: `${import.meta.env.BASE_URL}assets/blueberry.webp`,
   },
   {
     id: "ocean",
@@ -101,7 +101,7 @@ export const flavors = [
       en: "Lemon, mint and a splash of blue. Like the first day of a long-awaited holiday.",
     },
     ingredients: { ru: "Лимон · мята · содовая", en: "Lemon · mint · soda" },
-    image: "/assets/ocean.webp",
+    image: `${import.meta.env.BASE_URL}assets/ocean.webp`,
   },
   {
     id: "mocha",
@@ -120,7 +120,7 @@ export const flavors = [
       ru: "Кофе · молоко · шоколад",
       en: "Coffee · milk · chocolate",
     },
-    image: "/assets/mocha.webp",
+    image: `${import.meta.env.BASE_URL}assets/mocha.webp`,
   },
 ];
 export interface Product {
@@ -386,7 +386,7 @@ export const products: Product[] = rows.map(
     price,
     flavor,
     image:
-      category === "desserts" ? `/assets/${id}.webp` : flavors[flavor].image,
+      category === "desserts" ? `${import.meta.env.BASE_URL}assets/${id}.webp` : flavors[flavor].image,
     sizes:
       category === "desserts"
         ? []
@@ -399,3 +399,4 @@ export const products: Product[] = rows.map(
 export const priceFor = (product: Product, size: number) =>
   product.price +
   (product.sizes.length > 1 && size === product.sizes[1] ? 70 : 0);
+
