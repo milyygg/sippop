@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#ffb4d2" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("sippop-theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+      } catch {
+        /* Storage may be disabled. */
+      }
+    </script>
+    <title>SIPPOP! | Drink your mood.</title>
+    <meta
+      name="description"
+      content="SIPPOP! Напитки под твоё настроение: милкшейки, смузи, лимонады и матча. Интерактивный концептуальный проект."
+    />
+    <meta property="og:title" content="SIPPOP! Drink your mood." />
+    <meta
+      property="og:description"
+      content="Выбери настроение. Найди свой вкус. Концептуальный проект бренда напитков."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/og-cover.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
