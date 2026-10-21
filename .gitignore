@@ -8,3 +8,6 @@ playwright-report/
 .taste-skill/inspect/
 *.tsbuildinfo
 *.log
+
+qa/
+.taste-skill/

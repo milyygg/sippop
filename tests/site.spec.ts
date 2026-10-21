@@ -93,7 +93,8 @@ test("responsive layouts, images, mobile navigation and reduced motion", async (
     ),
   ).toEqual([]);
   await page.locator("#top").scrollIntoViewIfNeeded();
-  await page.screenshot({ path: "qa/mobile.png", fullPage: true });
+  await page.screenshot({ path: test.info().outputPath("mobile.png"), fullPage: true });
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.screenshot({ path: "qa/desktop.png", fullPage: true });
+  await page.screenshot({ path: test.info().outputPath("desktop.png"), fullPage: true });
 });
+

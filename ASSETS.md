@@ -11,7 +11,6 @@
 | public/assets/strawberry.webp, mango.webp, matcha.webp, blueberry.webp, ocean.webp, mocha.webp | image_gen, лист из 6 напитков | Сгенерированные визуализации концепта |
 | public/assets/berry-cheesecake.webp, mango-mochi.webp, matcha-cookie.webp, pink-donut.webp | image_gen, лист из 4 десертов | Сгенерированные визуализации концепта |
 | public/assets/og-cover.png | Снимок собственного интерфейса проекта | Составной кадр проекта |
-| src/assets/originals/drinks-sheet.png, desserts-sheet.png | Копии оригиналов image_gen | Исходные PNG с alpha |
 
 Изображения не имеют внешней стоковой лицензии, и им не приписывается CC0/MIT. Условия использования сгенерированного результата определяются применимыми условиями аккаунта OpenAI: https://openai.com/policies/terms-of-use/. Отдельная юридическая проверка условий конкретного аккаунта не проводилась. Исключительность и отсутствие любых возможных притязаний третьих лиц не гарантируются. Статус генерации явно обозначен в каталоге и подвале.
 
@@ -41,3 +40,4 @@ Golos Text и Unbounded получены из Google Fonts. Локальные W
 Pinterest: https://ru.pinterest.com/pin/725149977533181112/ и https://ru.pinterest.com/pin/901142206697679418/ недоступны в инструменте просмотра. Скриншотов референсов во вложениях нет, получен только текст ТЗ. Содержимое Pinterest не заявляется как просмотренное и не используется в ассетах.
 
 Refero Styles https://styles.refero.design/, Skiper UI https://www.skiper-ui.com/ и Watermelon UI https://ui.watermelon.sh/ рассмотрены как возможные источники подходов. Компоненты, изображения, код и шаблоны оттуда не переносились; их лицензии не используются как основание прав на этот проект.
+

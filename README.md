@@ -26,5 +26,6 @@ npm run dev
 
 Технологии: React, TypeScript, Vite, Tailwind CSS, Motion, Zustand.
 
-[Источники и права на материалы](ASSETS.md) · [Проверки проекта](QA.md)
+[Источники и права на материалы](ASSETS.md)
+
 
