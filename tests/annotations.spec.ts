@@ -1,5 +1,77 @@
 import { test, expect } from "@playwright/test";
 
+test("single flavor names, aligned purchase rows and centered hero CTA", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("./");
+  await expect(page.locator(".flavor-card-detail strong")).toHaveCount(0);
+  await expect(page.locator(".flavor-card-heading")).toHaveCount(5);
+  await expect(page.locator(".ticker")).toHaveCount(0);
+  await expect(page.locator(".ribbon-art svg path")).toHaveCount(5);
+  for (const lang of ["ru", "en"]) {
+    if (lang === "en") await page.locator(".language-button").click();
+    for (const width of [320, 390, 768, 1024, 1101, 1440]) {
+      await page.setViewportSize({ width, height: 884 });
+      await page.evaluate(() => document.fonts.ready);
+      const rows = await page.locator(".product-card").evaluateAll((cards) => {
+        const rows: Record<number, number[]> = {};
+        for (const card of cards) {
+          const row = Math.round(card.getBoundingClientRect().top);
+          const bottom = card
+            .querySelector(".product-bottom")!
+            .getBoundingClientRect();
+          (rows[row] ??= []).push(bottom.top);
+        }
+        return Object.values(rows).map(
+          (values) => Math.max(...values) - Math.min(...values),
+        );
+      });
+      expect(rows.every((offset) => offset < 2)).toBeTruthy();
+      const cta = await page.locator(".hero-cta").evaluate((el) => {
+        const box = el.getBoundingClientRect();
+        const text = el
+          .querySelector(".hero-cta-label")!
+          .getBoundingClientRect();
+        return {
+          x: Math.abs((box.left + box.right - text.left - text.right) / 2),
+          y: Math.abs((box.top + box.bottom - text.top - text.bottom) / 2),
+        };
+      });
+      expect(cta.x).toBeLessThan(1);
+      expect(cta.y).toBeLessThan(1);
+      expect(
+        await page
+          .locator(".hero-ingredients li")
+          .evaluateAll((items) =>
+            items.every((item) => item.scrollWidth <= item.clientWidth + 1),
+          ),
+      ).toBeTruthy();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBeTruthy();
+    }
+  }
+  await page.setViewportSize({ width: 1101, height: 884 });
+  await page.locator(".language-button").click();
+  await page.locator(".theme-toggle").click();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: test.info().outputPath("hero-dark-1101.png") });
+  await page
+    .locator(".flavor-ribbon")
+    .screenshot({ path: test.info().outputPath("flavor-ribbon.png") });
+  await page
+    .locator("#menu")
+    .screenshot({ path: test.info().outputPath("menu-alignment.png") });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({
+    path: test.info().outputPath("hero-dark-mobile.png"),
+  });
+});
+
 test("both languages are complete across the page, moods and checkout", async ({
   page,
 }) => {

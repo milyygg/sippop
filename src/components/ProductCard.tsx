@@ -36,40 +36,42 @@ export function ProductCard({
       <div className="product-info">
         <h3>{p.name[lang]}</h3>
         <p>{p.description[lang]}</p>
-        <div className="size-row">
-          {p.sizes.length ? (
-            <div
-              className="size-options"
-              aria-label={`${t.volume}: ${p.name[lang]}`}
+        <div className="product-purchase">
+          <div className="size-row">
+            {p.sizes.length ? (
+              <div
+                className="size-options"
+                aria-label={`${t.volume}: ${p.name[lang]}`}
+              >
+                {p.sizes.map((v) => (
+                  <button
+                    key={v}
+                    aria-pressed={size === v}
+                    onClick={() => setSize(v)}
+                  >
+                    {v} {t.ml}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <span>{t.dessertNote}</span>
+            )}
+          </div>
+          <div className="product-bottom">
+            <strong>{priceFor(p, size)} ₽</strong>
+            <button
+              className="add-button"
+              aria-label={`${added ? t.added : t.add}: ${p.name[lang]}`}
+              onClick={() => {
+                add(p.id, size);
+                setAdded(true);
+                setTimeout(() => setAdded(false), 1300);
+              }}
             >
-              {p.sizes.map((v) => (
-                <button
-                  key={v}
-                  aria-pressed={size === v}
-                  onClick={() => setSize(v)}
-                >
-                  {v} {t.ml}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <span>{t.dessertNote}</span>
-          )}
-        </div>
-        <div className="product-bottom">
-          <strong>{priceFor(p, size)} ₽</strong>
-          <button
-            className="add-button"
-            aria-label={`${added ? t.added : t.add}: ${p.name[lang]}`}
-            onClick={() => {
-              add(p.id, size);
-              setAdded(true);
-              setTimeout(() => setAdded(false), 1300);
-            }}
-          >
-            {added ? <Check size={18} /> : <Plus size={18} />}
-            <span>{added ? t.added : t.add}</span>
-          </button>
+              {added ? <Check size={18} /> : <Plus size={18} />}
+              <span>{added ? t.added : t.add}</span>
+            </button>
+          </div>
         </div>
       </div>
     </article>

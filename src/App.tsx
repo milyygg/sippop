@@ -6,6 +6,7 @@ import { dictionary } from "./i18n";
 import { usePreferences } from "./hooks/usePreferences";
 import { useCart } from "./store/cart";
 import { Hero } from "./sections/Hero";
+import { FlavorRibbon } from "./sections/FlavorRibbon";
 import {
   FlavorUniverse,
   MenuSection,
@@ -113,16 +114,7 @@ export default function App() {
               />
             </div>
           </div>
-          <div className="ticker" aria-hidden="true">
-            <div>
-              {[0, 1, 2, 3].map((i) => (
-                <span key={i}>
-                  {t.ticker} <span className="ticker-flower">✳</span> SIPPOP!{" "}
-                  <span className="ticker-flower">✳</span>{" "}
-                </span>
-              ))}
-            </div>
-          </div>
+          <FlavorRibbon t={t} />
           <div role="region" aria-label={t.menu}>
             <FlavorUniverse lang={lang} t={t} select={setActive} />
             <MenuSection lang={lang} t={t} />

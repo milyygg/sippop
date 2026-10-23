@@ -2,6 +2,8 @@ export const dictionary = {
   ru: {
     heroTagline: "ГЛОТОК. УЛЫБКА. ПОВТОРИ.",
     ticker: "ХОРОШИЙ ВКУС. ЯРКИЙ ДЕНЬ.",
+    ribbonFirst: "Хороший вкус.",
+    ribbonSecond: "Яркий день.",
     brandSlogan: "Пей своё настроение.",
     signatureWord1: "МЕЧТАЙ.",
     signatureWord2: "СИЯЙ.",
@@ -104,6 +106,8 @@ export const dictionary = {
   en: {
     heroTagline: "SIPS. SMILES. REPEAT.",
     ticker: "GOOD MOOD. GREAT SIP.",
+    ribbonFirst: "Good mood.",
+    ribbonSecond: "Great sip.",
     brandSlogan: "Drink your mood.",
     signatureWord1: "DREAM.",
     signatureWord2: "SPLASH.",

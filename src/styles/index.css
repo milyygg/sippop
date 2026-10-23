@@ -347,27 +347,52 @@ button:active,
   position: absolute;
   right: 0.5%;
   top: 16%;
-  width: 116px;
-  height: 116px;
-  border-radius: 50%;
-  background: #fff7c1;
+  width: 126px;
+  height: 126px;
+  color: #34202a;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   z-index: 3;
-  box-shadow: 0 6px 0 #34202a10;
+  padding: 30px 12px 20px;
   transition: transform 0.5s;
 }
-.hero-sticker span:first-child {
-  font-size: 32px;
+.sticker-cap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: visible;
+}
+.sticker-cap polygon {
+  fill: #fff4ad;
+}
+.sticker-cap circle {
+  fill: none;
+  stroke: #34202a;
+  stroke-width: 1;
+}
+.sticker-cap path {
+  fill: #34202a;
+}
+.sticker-number {
+  font-size: 38px;
   font-weight: 900;
   letter-spacing: -0.07em;
+  line-height: 1;
 }
-.hero-sticker span:last-child {
-  font-size: 12px;
-  max-width: 90px;
+.sticker-number > span {
+  font-size: 0.56em;
+  letter-spacing: -0.04em;
+}
+.sticker-caption {
+  font-size: 10px;
+  max-width: 82px;
+  margin-top: 5px;
+  font-weight: 600;
   line-height: 1.25;
 }
 .hero-volume {
@@ -391,6 +416,82 @@ button:active,
   border-radius: 50%;
   background: #ffffff25;
   pointer-events: none;
+}
+.hero-ingredients {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.hero-ingredients li {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-ingredients li::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.hero-cta {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 250px;
+  max-width: 100%;
+  min-height: 64px;
+  padding: 18px 52px;
+  background: #34202a;
+  color: #fffaf5;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  transition:
+    translate 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.2s;
+}
+.hero-cta-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--flavor);
+  color: #34202a;
+  transition: rotate 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-cta:hover {
+  translate: 0 -3px;
+}
+.hero-cta:hover .hero-cta-icon {
+  rotate: 45deg;
+}
+.hero-cta:active {
+  translate: 0 1px;
+}
+.hero-cta:focus-visible {
+  outline-offset: -5px;
+  background: #fff4ad;
+  color: #34202a;
 }
 .bubble-one {
   width: 45px;
@@ -474,28 +575,50 @@ button:active,
 .hero-arrows span {
   font-size: 12px;
 }
-.ticker {
-  background: #34202a;
-  color: #fffaf5;
-  padding: 17px 0;
-  overflow: hidden;
+.flavor-ribbon {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  min-height: 180px;
+  padding: 0 5vw;
+  background: var(--paper);
+  color: var(--ink);
+  gap: 6vw;
 }
-.ticker > div {
+.ribbon-copy {
   display: flex;
-  width: max-content;
-  animation: marquee 38s linear infinite;
+  flex-direction: column;
+  padding: 28px 0;
+  font-size: clamp(24px, 3.1vw, 46px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
 }
-.ticker span {
-  white-space: nowrap;
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+.ribbon-copy span:last-child {
+  color: var(--accent);
 }
-.ticker .ticker-flower {
-  display: inline-block;
-  color: var(--flavor);
-  padding: 0 32px;
-  font-size: 25px;
+.ribbon-art {
+  position: relative;
+  align-self: stretch;
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+}
+.ribbon-art svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.ribbon-wordmark {
+  position: relative;
+  margin-bottom: 34px;
+  transform: rotate(-7deg);
+  font-family: "Unbounded", sans-serif;
+  font-size: clamp(32px, 5.8vw, 84px);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  color: #34202a;
 }
 .section-heading {
   display: flex;
@@ -573,11 +696,7 @@ button:active,
   gap: 8px;
   margin-top: 8px;
 }
-.flavor-card-detail strong {
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-}
+
 .flavor-card-detail span {
   font-size: 11px;
   line-height: 1.6;
@@ -619,12 +738,15 @@ button:active,
   gap: 28px 20px;
 }
 .product-card {
+  display: flex;
+  flex-direction: column;
   background: var(--paper);
   border-radius: 20px;
   overflow: hidden;
   min-width: 0;
 }
 .product-image {
+  flex-shrink: 0;
   position: relative;
   background: var(--card-color);
   height: 270px;
@@ -659,6 +781,13 @@ button:active,
 }
 .product-info {
   padding: 21px 19px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.product-purchase {
+  margin-top: auto;
+  padding-top: 4px;
 }
 .product-info h3 {
   font-size: 18px;
@@ -1333,9 +1462,16 @@ button:active,
 [data-theme="dark"] .wordmark span {
   color: var(--flavor);
 }
-[data-theme="dark"] .hero-description .button {
+[data-theme="dark"] .hero-cta {
   background: var(--flavor);
   color: #34202a;
+}
+[data-theme="dark"] .hero-cta-icon {
+  background: #34202a;
+  color: var(--flavor);
+}
+[data-theme="dark"] .ribbon-copy span:last-child {
+  color: var(--flavor);
 }
 [data-theme="dark"] .product-image {
   background: color-mix(in srgb, var(--card-color) 68%, #403340);
@@ -1401,8 +1537,7 @@ button:active,
     font-size: 20px;
     white-space: nowrap;
   }
-  .hero-volume > span:last-child {
-    max-width: 135px;
+  .hero-ingredients {
     font-size: 10px;
   }
 }
@@ -1413,11 +1548,6 @@ button:active,
   }
   .hero-stage h1 {
     font-size: 5.8vw;
-  }
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
   }
 }
 @media (hover: hover) and (pointer: fine) {
@@ -1479,18 +1609,16 @@ button:active,
     bottom: 50px;
   }
   .hero-sticker {
-    width: 90px;
-    height: 90px;
-    right: -2%;
+    width: 100px;
+    height: 100px;
+    right: -1%;
+    padding: 24px 10px 16px;
   }
-  .hero-sticker span:first-child {
-    font-size: 26px;
+  .sticker-number {
+    font-size: 30px;
   }
-  .hero-sticker span:last-child {
-    font-size: 10px;
-  }
-  .hero-volume {
-    bottom: 30px;
+  .sticker-caption {
+    font-size: 8px;
   }
   .scroll-cue span {
     display: none;
@@ -1511,9 +1639,7 @@ button:active,
   .flavor-card-heading {
     font-size: 13px;
   }
-  .flavor-card-detail strong {
-    font-size: 12px;
-  }
+
   .flavor-card-detail span {
     font-size: 10px;
   }
@@ -1659,15 +1785,17 @@ button:active,
   .hero-sticker {
     top: 29%;
     right: 0;
-    width: 77px;
-    height: 77px;
+    width: 86px;
+    height: 86px;
+    padding: 21px 10px 14px;
   }
-  .hero-sticker span:first-child {
-    font-size: 24px;
+  .sticker-number {
+    font-size: 26px;
   }
-  .hero-sticker span:last-child {
-    font-size: 9px;
-    max-width: 65px;
+  .sticker-caption {
+    font-size: 8px;
+    max-width: 56px;
+    margin-top: 3px;
   }
   .hero-description {
     bottom: 0;
@@ -1688,14 +1816,31 @@ button:active,
     max-width: 220px;
     grid-column: 1;
   }
-  .hero-description .button {
+  .hero-cta {
     grid-column: 2;
     grid-row: 1/3;
     align-self: center;
+    width: 164px;
     font-size: 12px;
-    padding: 14px 16px;
-    gap: 12px;
-    min-height: 48px;
+    padding: 13px 34px;
+    min-height: 56px;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 12px) 0,
+      100% 12px,
+      100% 100%,
+      12px 100%,
+      0 calc(100% - 12px)
+    );
+  }
+  .hero-cta-icon {
+    width: 26px;
+    height: 26px;
+    right: 6px;
+  }
+  .hero-cta-icon svg {
+    width: 16px;
+    height: 16px;
   }
   .hero-volume {
     right: 0;
@@ -1756,15 +1901,21 @@ button:active,
     width: 34px;
     height: 34px;
   }
-  .ticker {
-    padding: 13px 0;
+  .flavor-ribbon {
+    min-height: 130px;
+    padding: 0 20px;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr;
   }
-  .ticker span {
-    font-size: 14px;
+  .ribbon-copy {
+    font-size: 22px;
   }
-  .ticker .ticker-flower {
-    font-size: 19px;
-    padding: 0 22px;
+  .ribbon-art {
+    min-height: 130px;
+  }
+  .ribbon-wordmark {
+    font-size: 26px;
+    margin-bottom: 23px;
   }
   .section-heading {
     display: block;
@@ -1805,9 +1956,7 @@ button:active,
   .flavor-card img {
     height: 240px;
   }
-  .flavor-card-detail strong {
-    font-size: 14px;
-  }
+
   .flavor-card-detail span {
     font-size: 11px;
   }
@@ -2106,14 +2255,13 @@ button:active,
     max-width: 165px;
     font-size: 11px;
   }
-  .hero-description .button {
+  .hero-cta {
     font-size: 10px;
-    padding: 12px;
-    gap: 5px;
+    width: 148px;
   }
   .hero-sticker {
-    width: 68px;
-    height: 68px;
+    width: 80px;
+    height: 80px;
   }
   .hero-volume {
     bottom: 140px;

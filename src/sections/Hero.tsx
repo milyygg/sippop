@@ -15,6 +15,11 @@ import {
 import { flavors } from "../data/products";
 import type { Lang } from "../data/products";
 import type { Copy } from "../i18n";
+const capPoints = Array.from({ length: 48 }, (_, i) => {
+  const angle = (i * Math.PI) / 24 - Math.PI / 2;
+  const radius = i % 2 === 0 ? 59 : 54;
+  return `${60 + Math.cos(angle) * radius},${60 + Math.sin(angle) * radius}`;
+}).join(" ");
 export function Hero({
   active,
   setActive,
@@ -95,22 +100,37 @@ export function Hero({
         </motion.div>
         <div
           className="hero-sticker"
-          style={{ transform: `rotate(${active % 2 ? -10 : 10}deg)` }}
+          style={{ transform: `rotate(${active % 2 ? 6 : -6}deg)` }}
         >
-          <span>100%</span>
-          <span>{lang === "ru" ? "твоё настроение" : "your kind of mood"}</span>
+          <svg className="sticker-cap" viewBox="0 0 120 120" aria-hidden="true">
+            <polygon points={capPoints} />
+            <circle cx="60" cy="60" r="47" />
+            <path d="M60 15l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" />
+          </svg>
+          <span className="sticker-number">
+            100<span>%</span>
+          </span>
+          <span className="sticker-caption">
+            {lang === "ru" ? "твоё настроение" : "your kind of mood"}
+          </span>
         </div>
         <div className="hero-description" aria-live="polite">
           <span className="flavor-name">{f.name[lang]}</span>
           <p>{f.description[lang]}</p>
-          <a className="button" href="#menu">
-            {t.discover}
-            <ArrowUpRight size={20} />
+          <a className="hero-cta" href="#menu">
+            <span className="hero-cta-label">{t.discover}</span>
+            <span className="hero-cta-icon" aria-hidden="true">
+              <ArrowUpRight size={20} />
+            </span>
           </a>
         </div>
         <div className="hero-volume">
           <span>500 {t.ml}</span>
-          <span>{f.ingredients[lang]}</span>
+          <ul className="hero-ingredients">
+            {f.ingredients[lang].split(" · ").map((ingredient) => (
+              <li key={ingredient}>{ingredient}</li>
+            ))}
+          </ul>
         </div>
       </div>
       <div className="hero-bottom">

@@ -43,7 +43,6 @@ export function FlavorUniverse({
                 <span>{f.name[lang]}</span>
               </div>
               <div className="flavor-card-detail">
-                <strong>{f.title[lang]}</strong>
                 <span>{f.ingredients[lang]}</span>
               </div>
             </button>
