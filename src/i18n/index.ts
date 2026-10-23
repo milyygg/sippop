@@ -1,5 +1,15 @@
 export const dictionary = {
   ru: {
+    heroTagline: "ГЛОТОК. УЛЫБКА. ПОВТОРИ.",
+    ticker: "ХОРОШИЙ ВКУС. ЯРКИЙ ДЕНЬ.",
+    brandSlogan: "Пей своё настроение.",
+    signatureWord1: "МЕЧТАЙ.",
+    signatureWord2: "СИЯЙ.",
+    signatureWord3: "ВЫДОХНИ.",
+    reviewMood: "настроение SIPPOP!",
+    seoTitle: "SIPPOP! | Пей своё настроение.",
+    seoDescription:
+      "SIPPOP! Напитки под твоё настроение: милкшейки, смузи, лимонады и матча. Интерактивный концептуальный проект.",
     menu: "Меню",
     about: "О нас",
     locations: "Где мы",
@@ -33,7 +43,7 @@ export const dictionary = {
     aboutSecond:
       "Мы смешиваем вкусы так же свободно, как ты меняешь планы. Чуть больше ягод. Чуть меньше серьёзности. И настроение, которое хочется взять с собой.",
     aboutNote: "Вымышленный бренд. Настоящая любовь к деталям.",
-    promo: "MAKE EVERY SIP A LITTLE HAPPIER.",
+    promo: "РАДОСТЬ В КАЖДОМ ГЛОТКЕ.",
     promoCopy: "Твоему дню не нужен повод стать вкуснее.",
     reviews: "Впечатления в деталях",
     reviewsNote:
@@ -76,9 +86,8 @@ export const dictionary = {
       "Это демонстрационная версия. Реальные заказы пока не принимаются.",
     done: "Всё понятно",
     size: "Объём",
-    motion: "Анимации",
     theme: "Сменить тему",
-    language: "Switch to English",
+    language: "Переключить на английский",
     mobileMenu: "Открыть меню",
     cartCount: "товаров",
     scroll: "Листай к новым вкусам",
@@ -93,6 +102,16 @@ export const dictionary = {
     skip: "Перейти к содержимому",
   },
   en: {
+    heroTagline: "SIPS. SMILES. REPEAT.",
+    ticker: "GOOD MOOD. GREAT SIP.",
+    brandSlogan: "Drink your mood.",
+    signatureWord1: "DREAM.",
+    signatureWord2: "SPLASH.",
+    signatureWord3: "SLOW.",
+    reviewMood: "SIPPOP! mood",
+    seoTitle: "SIPPOP! | Drink your mood.",
+    seoDescription:
+      "SIPPOP! Drinks for every mood: milkshakes, smoothies, lemonades and matcha. An interactive brand concept.",
     menu: "Menu",
     about: "Our story",
     locations: "Find us",
@@ -169,9 +188,8 @@ export const dictionary = {
     demoComplete: "This is a demo. Real orders are not being accepted yet.",
     done: "Got it",
     size: "Size",
-    motion: "Animations",
     theme: "Switch theme",
-    language: "Переключить на русский",
+    language: "Switch to Russian",
     mobileMenu: "Open menu",
     cartCount: "items",
     scroll: "Scroll for more flavors",

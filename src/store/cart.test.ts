@@ -48,6 +48,7 @@ describe("cart", () => {
   });
   it("has complete bilingual data and 24 unique items", () => {
     expect(new Set(products.map((p) => p.id)).size).toBe(24);
+    expect(new Set(products.map((p) => p.image)).size).toBe(24);
     for (const p of products) {
       expect(
         p.name.ru && p.name.en && p.description.ru && p.description.en,

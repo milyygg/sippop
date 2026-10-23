@@ -50,7 +50,7 @@ export function Hero({
       }}
     >
       <div className="hero-topline">
-        <span>SIPS. SMILES. REPEAT.</span>
+        <span>{t.heroTagline}</span>
         <span>{t.heroCopy}</span>
         <Sparkles size={18} />
       </div>
@@ -60,14 +60,14 @@ export function Hero({
         <div className="bubble bubble-two" aria-hidden="true" />
         <AnimatePresence mode="wait" initial={false}>
           <motion.h1
-            key={f.id}
+            key={`${f.id}-${lang}`}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: reduced ? 0 : 0.22 }}
           >
-            <span>{f.headline[0]}</span>
-            <span>{f.headline[1]}</span>
+            <span>{f.headline[lang][0]}</span>
+            <span>{f.headline[lang][1]}</span>
           </motion.h1>
         </AnimatePresence>
         <motion.div
@@ -82,7 +82,7 @@ export function Hero({
               width="500"
               height="650"
               fetchPriority="high"
-              alt={f.name}
+              alt={f.name[lang]}
               initial={{ opacity: 0, rotate: 8, scale: 0.94, y: 20 }}
               animate={{ opacity: 1, rotate: -7, scale: 1, y: 0 }}
               exit={{ opacity: 0, rotate: -10, y: -12 }}
@@ -101,7 +101,7 @@ export function Hero({
           <span>{lang === "ru" ? "твоё настроение" : "your kind of mood"}</span>
         </div>
         <div className="hero-description" aria-live="polite">
-          <span className="flavor-name">{f.name}</span>
+          <span className="flavor-name">{f.name[lang]}</span>
           <p>{f.description[lang]}</p>
           <a className="button" href="#menu">
             {t.discover}
@@ -138,7 +138,7 @@ export function Hero({
                 className={active === i ? "active" : ""}
                 key={v.id}
                 onClick={() => setActive(i)}
-                aria-label={v.name}
+                aria-label={v.name[lang]}
                 aria-pressed={active === i}
                 style={{ "--dot": v.color } as React.CSSProperties}
               >

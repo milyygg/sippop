@@ -4,21 +4,23 @@ test("catalog, mood, cart, checkout, localization and persistence", async ({
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/");
+  await page.goto("./");
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   await expect(page.locator(".product-card")).toHaveCount(24);
   for (const [name, mood] of [
-    ["Matcha Mood", "ZEN"],
-    ["Blueberry Blast", "BERRY"],
-    ["Ocean Lemonade", "FRESH"],
-    ["Strawberry Dream", "PINK"],
+    ["Матча настроение", "ВЫДОХНУТЬ."],
+    ["Черничный взрыв", "ТВОЙ МИГ."],
+    ["Океанский лимонад", "ПРОХЛАДЫ."],
+    ["Клубничная мечта", "ТВОЙ МИР."],
   ]) {
     await page.getByRole("button", { name, exact: true }).click();
-    await expect(page.locator("h1")).toContainText(`${mood} MOOD.`);
+    await expect(page.locator("h1")).toContainText(mood);
   }
-  await page.getByRole("button", { name: "Mango Splash", exact: true }).click();
-  await expect(page.locator("h1")).toContainText("SUNNY MOOD.");
+  await page
+    .getByRole("button", { name: "Манговый всплеск", exact: true })
+    .click();
+  await expect(page.locator("h1")).toContainText("В СТАКАНЕ.");
   await page.getByRole("button", { name: "Матча 4", exact: true }).click();
   await expect(page.locator(".product-card")).toHaveCount(4);
   const card = page.locator(".product-card").first();
@@ -41,7 +43,7 @@ test("catalog, mood, cart, checkout, localization and persistence", async ({
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).not.toBeVisible();
   await expect(page.locator(".bag-button")).toBeFocused();
-  await page.getByRole("button", { name: "Switch to English" }).click();
+  await page.getByRole("button", { name: "Переключить на английский" }).click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("#menu h2")).toHaveText("Find your next favorite");
   await page.getByRole("button", { name: "Switch theme" }).click();
@@ -56,7 +58,7 @@ test("responsive layouts, images, mobile navigation and reduced motion", async (
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("./");
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
@@ -93,8 +95,13 @@ test("responsive layouts, images, mobile navigation and reduced motion", async (
     ),
   ).toEqual([]);
   await page.locator("#top").scrollIntoViewIfNeeded();
-  await page.screenshot({ path: test.info().outputPath("mobile.png"), fullPage: true });
+  await page.screenshot({
+    path: test.info().outputPath("mobile.png"),
+    fullPage: true,
+  });
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.screenshot({ path: test.info().outputPath("desktop.png"), fullPage: true });
+  await page.screenshot({
+    path: test.info().outputPath("desktop.png"),
+    fullPage: true,
+  });
 });
-

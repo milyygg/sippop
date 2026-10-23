@@ -1,15 +1,6 @@
 import { lazy, Suspense, useState } from "react";
 import { MotionConfig } from "motion/react";
-import {
-  ShoppingBag,
-  Sun,
-  Moon,
-  Menu,
-  X,
-  ArrowUp,
-  Pause,
-  Play,
-} from "lucide-react";
+import { ShoppingBag, Sun, Moon, Menu, X, ArrowUp } from "lucide-react";
 import { flavors } from "./data/products";
 import { dictionary } from "./i18n";
 import { usePreferences } from "./hooks/usePreferences";
@@ -26,8 +17,7 @@ import {
 } from "./sections/Content";
 const CartDrawer = lazy(() => import("./components/CartDrawer"));
 export default function App() {
-  const { lang, setLang, theme, setTheme, moving, setMoving } =
-    usePreferences();
+  const { lang, setLang, theme, setTheme } = usePreferences();
   const t = dictionary[lang];
   const [active, setActive] = useState(0);
   const [cartOpen, setCartOpen] = useState(false);
@@ -48,7 +38,7 @@ export default function App() {
     </>
   );
   return (
-    <MotionConfig reducedMotion={moving ? "user" : "always"}>
+    <MotionConfig reducedMotion="user">
       <div
         className="site"
         id="top"
@@ -79,8 +69,8 @@ export default function App() {
                   onClick={() => setLang(lang === "ru" ? "en" : "ru")}
                   aria-label={t.language}
                 >
-                  {lang.toUpperCase()}
-                  <span> / {lang === "ru" ? "EN" : "RU"}</span>
+                  {lang === "ru" ? "РУ" : "EN"}
+                  <span> / {lang === "ru" ? "АНГ" : "RU"}</span>
                 </button>
                 <button
                   className="icon-button theme-toggle"
@@ -119,7 +109,7 @@ export default function App() {
                 setActive={setActive}
                 lang={lang}
                 t={t}
-                moving={moving}
+                moving={true}
               />
             </div>
           </div>
@@ -127,8 +117,8 @@ export default function App() {
             <div>
               {[0, 1, 2, 3].map((i) => (
                 <span key={i}>
-                  GOOD MOOD. GREAT SIP. <span className="ticker-flower">✳</span>{" "}
-                  SIPPOP! <span className="ticker-flower">✳</span>{" "}
+                  {t.ticker} <span className="ticker-flower">✳</span> SIPPOP!{" "}
+                  <span className="ticker-flower">✳</span>{" "}
                 </span>
               ))}
             </div>
@@ -138,7 +128,7 @@ export default function App() {
             <MenuSection lang={lang} t={t} />
             <Signature lang={lang} t={t} />
             <Story t={t} />
-            <Promo t={t} />
+            <Promo t={t} lang={lang} />
             <Reviews t={t} />
             <Locations t={t} />
           </div>
@@ -147,13 +137,6 @@ export default function App() {
           <div className="footer-top">
             <p>{t.footerLine}</p>
             <nav aria-label={t.menu}>{nav}</nav>
-            <button
-              className="text-button"
-              onClick={() => setMoving(!moving)}
-              aria-pressed={moving}
-            >
-              {moving ? <Pause size={16} /> : <Play size={16} />} {t.motion}
-            </button>
             <a href="#top" className="icon-button" aria-label={t.top}>
               <ArrowUp />
             </a>

@@ -32,17 +32,16 @@ export function FlavorUniverse({
                 document.getElementById("top")?.scrollIntoView();
               }}
             >
-              <div className="flavor-card-heading">
-                <span>{f.name}</span>
-                <ArrowUpRight />
-              </div>
               <img
                 src={f.image}
-                alt={f.name}
+                alt={f.name[lang]}
                 width="320"
                 height="420"
                 loading="lazy"
               />
+              <div className="flavor-card-heading">
+                <span>{f.name[lang]}</span>
+              </div>
               <div className="flavor-card-detail">
                 <strong>{f.title[lang]}</strong>
                 <span>{f.ingredients[lang]}</span>
@@ -105,23 +104,23 @@ export function Signature({ lang, t }: { lang: Lang; t: Copy }) {
         {flavors.slice(0, 3).map((f, i) => (
           <Reveal className={`signature-panel signature-${i}`} key={f.id}>
             <div className="signature-word" aria-hidden="true">
-              {["DREAM.", "SPLASH.", "SLOW."][i]}
+              {[t.signatureWord1, t.signatureWord2, t.signatureWord3][i]}
             </div>
             <img
               src={f.image}
-              alt={f.name}
+              alt={f.name[lang]}
               width="500"
               height="650"
               loading="lazy"
             />
             <div className="signature-copy">
               <span>{[t.signature1, t.signature2, t.signature3][i]}</span>
-              <h3>{f.name}</h3>
+              <h3>{f.name[lang]}</h3>
               <p>{f.description[lang]}</p>
               <a
                 className="circle-link"
                 href="#menu"
-                aria-label={`${t.openMenu}: ${f.name}`}
+                aria-label={`${t.openMenu}: ${f.name[lang]}`}
               >
                 <ArrowUpRight size={28} />
               </a>
@@ -141,7 +140,7 @@ export function Story({ t }: { t: Copy }) {
           <br />
           POP!
         </span>
-        <span className="story-caption">Drink your mood.</span>
+        <span className="story-caption">{t.brandSlogan}</span>
         <span className="story-spark" aria-hidden="true">
           ✳
         </span>
@@ -155,7 +154,7 @@ export function Story({ t }: { t: Copy }) {
     </section>
   );
 }
-export function Promo({ t }: { t: Copy }) {
+export function Promo({ t, lang }: { t: Copy; lang: Lang }) {
   return (
     <section className="promo">
       <Reveal className="promo-copy">
@@ -170,14 +169,14 @@ export function Promo({ t }: { t: Copy }) {
         <span aria-hidden="true" className="promo-circle" />
         <img
           src={flavors[1].image}
-          alt="Mango Splash"
+          alt={flavors[1].name[lang]}
           width="500"
           height="650"
           loading="lazy"
         />
         <img
           src={flavors[0].image}
-          alt="Strawberry Dream"
+          alt={flavors[0].name[lang]}
           width="500"
           height="650"
           loading="lazy"
@@ -203,7 +202,9 @@ export function Reviews({ t }: { t: Copy }) {
               ))}
             </div>
             <blockquote>{[t.quote1, t.quote2, t.quote3][i]}</blockquote>
-            <span>{[t.person1, t.person2, t.person3][i]} · SIPPOP! mood</span>
+            <span>
+              {[t.person1, t.person2, t.person3][i]} · {t.reviewMood}
+            </span>
           </Reveal>
         ))}
       </div>

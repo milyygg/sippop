@@ -13,12 +13,15 @@ export type Category = (typeof categories)[number];
 export const flavors = [
   {
     id: "strawberry",
-    name: "Strawberry Dream",
+    name: { ru: "Клубничная мечта", en: "Strawberry Dream" },
     color: "#ffb4d2",
     accent: "#c82761",
     soft: "#ffe3ef",
     dark: "#452537",
-    headline: ["DRINK YOUR", "PINK MOOD."],
+    headline: {
+      ru: ["РОЗОВЫЙ", "ТВОЙ МИР."],
+      en: ["DRINK YOUR", "PINK MOOD."],
+    },
     title: { ru: "Розовое настроение", en: "A little pink happiness" },
     description: {
       ru: "Клубника, нежное молоко и облако сливок. Сегодня можно просто наслаждаться.",
@@ -32,12 +35,15 @@ export const flavors = [
   },
   {
     id: "mango",
-    name: "Mango Splash",
+    name: { ru: "Манговый всплеск", en: "Mango Splash" },
     color: "#ffd166",
     accent: "#a64b00",
     soft: "#fff0b8",
     dark: "#46351d",
-    headline: ["DRINK YOUR", "SUNNY MOOD."],
+    headline: {
+      ru: ["СОЛНЦЕ", "В СТАКАНЕ."],
+      en: ["DRINK YOUR", "SUNNY MOOD."],
+    },
     title: { ru: "Солнце в стакане", en: "Sunshine in a cup" },
     description: {
       ru: "Спелое манго, банан и кокосовое молоко. Твой маленький тропический побег.",
@@ -51,12 +57,12 @@ export const flavors = [
   },
   {
     id: "matcha",
-    name: "Matcha Mood",
+    name: { ru: "Матча настроение", en: "Matcha Mood" },
     color: "#bbe89a",
     accent: "#276d37",
     soft: "#e3f6d5",
     dark: "#233c2b",
-    headline: ["DRINK YOUR", "ZEN MOOD."],
+    headline: { ru: ["ВРЕМЯ", "ВЫДОХНУТЬ."], en: ["DRINK YOUR", "ZEN MOOD."] },
     title: { ru: "Зелёный свет паузе", en: "A green light to slow down" },
     description: {
       ru: "Матча, овсяное молоко и немного ванили. Выдохни, этот момент только твой.",
@@ -70,12 +76,15 @@ export const flavors = [
   },
   {
     id: "blueberry",
-    name: "Blueberry Blast",
+    name: { ru: "Черничный взрыв", en: "Blueberry Blast" },
     color: "#c6b4ff",
     accent: "#6542b6",
     soft: "#eee7ff",
     dark: "#312746",
-    headline: ["DRINK YOUR", "BERRY MOOD."],
+    headline: {
+      ru: ["ЯГОДНЫЙ", "ТВОЙ МИГ."],
+      en: ["DRINK YOUR", "BERRY MOOD."],
+    },
     title: { ru: "По самые ягоды", en: "All the berry feels" },
     description: {
       ru: "Черника, пломбир и густой ягодный соус. Для тех, кто любит чуть больше.",
@@ -89,12 +98,15 @@ export const flavors = [
   },
   {
     id: "ocean",
-    name: "Ocean Lemonade",
+    name: { ru: "Океанский лимонад", en: "Ocean Lemonade" },
     color: "#a5e9f2",
     accent: "#096b81",
     soft: "#ddf9ff",
     dark: "#1c3945",
-    headline: ["DRINK YOUR", "FRESH MOOD."],
+    headline: {
+      ru: ["ГЛОТОК", "ПРОХЛАДЫ."],
+      en: ["DRINK YOUR", "FRESH MOOD."],
+    },
     title: { ru: "Глоток прохлады", en: "A sip of the sea" },
     description: {
       ru: "Лимон, мята и голубая свежесть. Словно первый день долгожданного отпуска.",
@@ -105,12 +117,12 @@ export const flavors = [
   },
   {
     id: "mocha",
-    name: "Mocha Moment",
+    name: { ru: "Момент мокка", en: "Mocha Moment" },
     color: "#e5b89c",
     accent: "#78452f",
     soft: "#f8e5d7",
     dark: "#3f2c26",
-    headline: ["DRINK YOUR", "COZY MOOD."],
+    headline: { ru: ["ВРЕМЯ", "ДЛЯ СЕБЯ."], en: ["DRINK YOUR", "COZY MOOD."] },
     title: { ru: "Время для себя", en: "Your cozy little moment" },
     description: {
       ru: "Кофе, шоколад и нежная карамель. Маленькая пауза посреди большого дня.",
@@ -377,6 +389,14 @@ const rows: Row[] = [
     0,
   ],
 ];
+const existingProductImages: Record<string, string> = {
+  "strawberry-cloud": "strawberry",
+  "mango-madness": "mango",
+  "blueberry-boom": "blueberry",
+  "iced-matcha": "matcha",
+  "ocean-breeze": "ocean",
+  "caramel-latte": "mocha",
+};
 export const products: Product[] = rows.map(
   ([id, ru, en, dr, de, category, price, flavor], i) => ({
     id,
@@ -385,8 +405,7 @@ export const products: Product[] = rows.map(
     category,
     price,
     flavor,
-    image:
-      category === "desserts" ? `${import.meta.env.BASE_URL}assets/${id}.webp` : flavors[flavor].image,
+    image: `${import.meta.env.BASE_URL}assets/${existingProductImages[id] ?? id}.webp`,
     sizes:
       category === "desserts"
         ? []
@@ -399,4 +418,3 @@ export const products: Product[] = rows.map(
 export const priceFor = (product: Product, size: number) =>
   product.price +
   (product.sizes.length > 1 && size === product.sizes[1] ? 70 : 0);
-

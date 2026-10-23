@@ -22,6 +22,66 @@ Use case: product-mockup. Create a premium photographic product asset sheet for 
 
 Use case product-mockup. Transparent background asset sheet 2 columns 2 rows with four separate fully visible premium dessert photographs, no overlap, generous padding around each equal cell. Top left: triangular slice of blueberry cheesecake with rich purple berry sauce and fresh blueberries. Top right: two mango mochi, one cut open showing mango and cream. Bottom left: two soft round pale green matcha cookies with white chocolate chunks. Bottom right: one fluffy ring donut with pink strawberry glaze. Each dessert centered in its own cell, consistent three-quarter camera and soft studio light, photorealistic appetizing artisan food photography, clean cutouts with no table, no plates, no text, no logos, no decorative backgrounds. Size of object occupies 70 percent cell width. High detail.
 
+## Индивидуальные кадры каталога, 2026-10-23
+
+Для устранения повторов созданы 14 отдельных изображений встроенным image_gen. Остальные 10 товаров используют разные ранее подготовленные кадры. У каждой из 24 позиций свой файл; горячий капучино показан в керамической чашке, горячий латте в стеклянной кружке, лимонады отличаются ингредиентами и цветом. Все новые кадры экспортированы в WebP с прозрачностью в public/assets. Статус прав такой же, как у остальных сгенерированных концептуальных изображений выше.
+
+### vanilla-pop.webp
+
+Use case: product-mockup. One single isolated photorealistic beverage product cutout for SIPPOP! menu. A tall creamy ivory vanilla milkshake, vanilla ice cream, delicate whipped cream, vanilla pod garnish, neutral cream paper straw. No berries, no pink. Transparent background, one transparent tapered takeaway cup, full cup and full straw visible with generous empty padding, centered front three-quarter view, commercial studio lighting, realistic condensation, appetizing premium editorial photography. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### tropical-sunrise.webp
+
+Use case: product-mockup. One single isolated photorealistic beverage product cutout for SIPPOP! menu. A tall golden-orange mango pineapple coconut smoothie, thick smooth texture, pineapple wedge and tiny coconut flake garnish, yellow paper straw. No whipped cream. Transparent background, one transparent tapered takeaway cup, full cup and full straw visible with generous empty padding, centered front three-quarter view, commercial studio lighting, realistic condensation, appetizing premium editorial photography. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### berry-energy.webp
+
+Use case: product-mockup. One single isolated photorealistic beverage product cutout for SIPPOP! menu. A tall deep violet blueberry banana apple smoothie, thick smooth texture with tiny berry flecks, small blueberry and banana slice garnish, lilac paper straw. No whipped cream. Transparent background, one transparent tapered takeaway cup, full cup and full straw visible with generous empty padding, centered front three-quarter view, commercial studio lighting, realistic condensation, appetizing premium editorial photography. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### green-day.webp
+
+Use case: product-mockup. One single isolated photorealistic beverage product cutout for SIPPOP! menu. A tall vivid spinach-green apple banana lime smoothie, smooth thick texture, green apple slice and lime wedge garnish, green paper straw. No matcha latte layering, no whipped cream. Transparent background, one transparent tapered takeaway cup, full cup and full straw visible with generous empty padding, centered front three-quarter view, commercial studio lighting, realistic condensation, appetizing premium editorial photography. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### pink-sunrise.webp
+
+undefinedPink strawberry banana coconut smoothie, opaque soft coral pink thick purée, flat surface, banana slice and small strawberry garnish, pastel pink straw. No whipped cream. Transparent background, one transparent tapered takeaway cup, full cup and full straw visible with generous empty padding, centered front three-quarter view, commercial studio lighting, realistic condensation, appetizing premium editorial photography. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### mango-fizz.webp
+
+undefinedClear sparkling golden mango lime lemonade with large transparent ice cubes and visible fizzy bubbles, thin lime wheels and small mango cubes, orange straw. Translucent soda, not opaque smoothie. Transparent background, one transparent tapered takeaway cup, full cup and full straw visible with generous empty padding, centered front three-quarter view, commercial studio lighting, realistic condensation, appetizing premium editorial photography. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### strawberry-soda.webp
+
+undefinedClear sparkling ruby pink strawberry lemon soda with ice cubes, floating strawberry slices and lemon wheel, red paper straw. Translucent lemonade, no milk, no cream. Transparent background, one transparent tapered takeaway cup, full cup and full straw visible with generous empty padding, centered front three-quarter view, commercial studio lighting, realistic condensation, appetizing premium editorial photography. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### blueberry-tonic.webp
+
+undefinedClear sparkling plum-purple blueberry tonic with large ice cubes, fresh blueberries and rosemary sprig, purple straw. Translucent soda, no milk, no whipped cream. Transparent background, one transparent tapered takeaway cup, full cup and full straw visible with generous empty padding, centered front three-quarter view, commercial studio lighting, realistic condensation, appetizing premium editorial photography. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### matcha-cloud.webp
+
+undefinedPale creamy green vanilla matcha oat milk latte with a soft white cold-foam cloud on top and delicate matcha dust, green paper straw. Transparent background. One cup centered, full object visible, generous empty padding, front three-quarter camera at a slight elevation. Unless ceramic explicitly specified, use a tall transparent tapered takeaway cup. Consistent commercial studio lighting, premium photorealistic appetizing photography, real beverage textures. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### pink-matcha.webp
+
+undefinedDistinct layered strawberry matcha latte: vivid pink strawberry purée and pink milk bottom, white milk middle and rich green matcha top, visible ice, green paper straw. No whipped cream. Transparent background. One cup centered, full object visible, generous empty padding, front three-quarter camera at a slight elevation. Unless ceramic explicitly specified, use a tall transparent tapered takeaway cup. Consistent commercial studio lighting, premium photorealistic appetizing photography, real beverage textures. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### mango-matcha.webp
+
+undefinedDistinct layered mango coconut matcha latte: golden mango purée at base, white coconut milk middle, vivid matcha green top, visible ice, green straw. Transparent background. One cup centered, full object visible, generous empty padding, front three-quarter camera at a slight elevation. Unless ceramic explicitly specified, use a tall transparent tapered takeaway cup. Consistent commercial studio lighting, premium photorealistic appetizing photography, real beverage textures. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### cappuccino.webp
+
+undefinedHot classic cappuccino in a rounded matte ivory ceramic cup with a small handle, velvety milk foam and beautiful rosetta latte art, tiny suggestion of steam. No plastic cup, no ice, no straw. Transparent background. One cup centered, full object visible, generous empty padding, front three-quarter camera at a slight elevation. Unless ceramic explicitly specified, use a tall transparent tapered takeaway cup. Consistent commercial studio lighting, premium photorealistic appetizing photography, real beverage textures. Black small SIPPOP! wordmark on front, no other text. No table, no ground, no extra objects outside cup, no hard shadow, no background. Portrait composition, cup fills 80 percent of height.
+
+### mocha-pop.webp
+
+Use case: product-mockup. One single isolated photorealistic beverage product cutout for SIPPOP! menu. Chocolate mocha coffee in a tall clear rounded latte glass, rich dark chocolate at base and brown milk coffee above, generous whipped cream dome, cocoa dust and thin chocolate drizzle. No ice, no straw. Transparent background, a single cup fully visible with generous empty padding, centered front three-quarter view slightly from above, consistent premium commercial studio lighting, appetizing photorealistic coffee photography, realistic texture. Small black SIPPOP! wordmark on front, no other text. No table, no saucer, no ground, no extra objects, no hard shadows, no background. Portrait composition, object fills 80 percent of height.
+
+### vanilla-latte.webp
+
+Use case: product-mockup. One single isolated photorealistic beverage product cutout for SIPPOP! menu. Hot vanilla latte in a tall clear glass with a delicate glass handle, light beige steamed milk coffee, neat white foam cap with fine heart latte art and a small vanilla pod on foam. No whipped cream, no ice, no straw. Transparent background, a single cup fully visible with generous empty padding, centered front three-quarter view slightly from above, consistent premium commercial studio lighting, appetizing photorealistic coffee photography, realistic texture. Small black SIPPOP! wordmark on front, no other text. No table, no saucer, no ground, no extra objects, no hard shadows, no background. Portrait composition, object fills 80 percent of height.
+
 ## Шрифты
 
 Golos Text и Unbounded получены из Google Fonts. Локальные WOFF2 и тексты SIL Open Font License 1.1 включены в public/fonts. Лицензия допускает использование и распространение шрифтов с сохранением её условий; шрифты не продаются отдельно и не модифицированы.
