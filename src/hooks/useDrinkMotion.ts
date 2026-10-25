@@ -151,6 +151,10 @@ export function useDrinkMotion(allowed: boolean) {
 
   async function requestTilt() {
     if (!active) return;
+    if (!window.isSecureContext || (!sensor() && !motionSensor())) {
+      setNoSensorData(true);
+      return;
+    }
     const apis = [sensor(), motionSensor()].filter(
       (api) => typeof api?.requestPermission === "function",
     );

@@ -1,6 +1,7 @@
 export const dictionary = {
   ru: {
     enableTilt: "Включить наклон телефона",
+    tiltReduced: "Движение отключено системной настройкой уменьшения анимации.",
     tiltUnavailable:
       "Браузер не передаёт данные наклона. Попробуй открыть сайт в обычном браузере и разрешить доступ к датчикам в его настройках.",
     tiltAsking: "Запрашиваю доступ…",
@@ -113,6 +114,7 @@ export const dictionary = {
   },
   en: {
     enableTilt: "Enable phone tilt",
+    tiltReduced: "Motion is disabled by your system's reduced motion setting.",
     tiltUnavailable:
       "No tilt data from this browser. Try opening the site in your regular browser and allowing motion sensors in its settings.",
     tiltAsking: "Requesting access…",

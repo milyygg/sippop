@@ -163,7 +163,7 @@ test.describe("phone drink motion", () => {
       )
       .toBeGreaterThan(2);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect(page.locator(".tilt-controls")).toHaveCount(0);
+    await expect(page.locator(".tilt-controls button")).toBeDisabled();
     await expect(page.locator(".hero-product-float")).toHaveCSS(
       "animation-name",
       "none",

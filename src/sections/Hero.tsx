@@ -62,6 +62,29 @@ export function Hero({
         <span>{t.heroCopy}</span>
         <Sparkles size={18} />
       </div>
+      {drinkMotion.mobile && (
+        <div className="tilt-controls">
+          <button
+            type="button"
+            onClick={drinkMotion.requestTilt}
+            disabled={reduced || drinkMotion.permission === "asking"}
+          >
+            <Move3d size={16} />
+            {drinkMotion.permission === "asking" ? t.tiltAsking : t.enableTilt}
+          </button>
+          <span role="status">
+            {reduced
+              ? t.tiltReduced
+              : drinkMotion.noSensorData
+                ? t.tiltUnavailable
+                : drinkMotion.permission === "denied"
+                  ? t.tiltDenied
+                  : drinkMotion.hasSensorData
+                    ? t.tiltActive
+                    : t.tiltHint}
+          </span>
+        </div>
+      )}
       <div className="hero-stage">
         <div className="hero-orbit" aria-hidden="true" />
         <div className="bubble bubble-one" aria-hidden="true" />
@@ -196,40 +219,6 @@ export function Hero({
           </button>
         </div>
       </div>
-      {drinkMotion.mobile && !reduced && (
-        <div className="tilt-controls">
-          {drinkMotion.permission === "prompt" ||
-          drinkMotion.permission === "asking" ? (
-            <button
-              type="button"
-              onClick={drinkMotion.requestTilt}
-              disabled={drinkMotion.permission === "asking"}
-            >
-              <Move3d size={16} />
-              {drinkMotion.permission === "asking"
-                ? t.tiltAsking
-                : t.enableTilt}
-            </button>
-          ) : (
-            <span role="status">
-              {drinkMotion.noSensorData
-                ? t.tiltUnavailable
-                : drinkMotion.permission === "denied"
-                  ? t.tiltDenied
-                  : drinkMotion.permission === "unavailable"
-                    ? t.touchTiltHint
-                    : drinkMotion.hasSensorData
-                      ? t.tiltActive
-                      : t.tiltHint}
-            </span>
-          )}
-          {drinkMotion.noSensorData && (
-            <button type="button" onClick={drinkMotion.requestTilt}>
-              {t.enableTilt}
-            </button>
-          )}
-        </div>
-      )}
     </section>
   );
 }

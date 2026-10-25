@@ -121,7 +121,7 @@ test("vertical and diagonal finger gestures over drink images scroll the page", 
   const cdp = await page.context().newCDPSession(page);
   const image = page.locator(".flavor-card img").first();
   await image.scrollIntoViewIfNeeded();
-  await expect(page.locator(".flavor-grid")).toHaveCSS("display", "grid");
+  await expect(page.locator(".flavor-grid")).toHaveCSS("display", "flex");
   const box = await image.boundingBox();
   if (!box) throw new Error("Missing drink image");
   const x = box.x + box.width / 2;
@@ -148,7 +148,7 @@ test("vertical and diagonal finger gestures over drink images scroll the page", 
   expect(
     await page
       .locator(".flavor-grid")
-      .evaluate((el) => el.scrollWidth <= el.clientWidth),
+      .evaluate((el) => el.scrollWidth > el.clientWidth),
   ).toBe(true);
   expect(
     await page.evaluate(
@@ -175,4 +175,67 @@ test("hero preload matches the only selected image and stays below 250 KB", asyn
   const response = await page.request.get(url);
   expect((await response.body()).length).toBeLessThan(250_000);
   expect(downloads).toHaveLength(1);
+});
+
+test("carousel swipes sideways and tilt button is visible without a permission API", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("./");
+  const button = page.getByRole("button", { name: "Включить наклон телефона" });
+  await expect(button).toBeInViewport();
+  await button.click();
+  await expect(button).toBeEnabled();
+  await page.evaluate(() =>
+    window.dispatchEvent(
+      new DeviceMotionEvent("devicemotion", {
+        accelerationIncludingGravity: { x: 0, y: 8, z: 5 },
+      }),
+    ),
+  );
+  await expect(page.locator(".tilt-controls")).toContainText("движется вместе");
+  const grid = page.locator(".flavor-grid");
+  await grid.scrollIntoViewIfNeeded();
+  const box = await grid.boundingBox();
+  if (!box) throw new Error("Missing carousel");
+  const cdp = await page.context().newCDPSession(page);
+  const x = box.x + box.width * 0.8,
+    y = Math.max(80, box.y + 150);
+  await cdp.send("Input.dispatchTouchEvent", {
+    type: "touchStart",
+    touchPoints: [{ x, y }],
+  });
+  for (let i = 1; i <= 8; i++) {
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchMove",
+      touchPoints: [{ x: x - i * 25, y: y - i * 2 }],
+    });
+    await page.waitForTimeout(30);
+  }
+  await cdp.send("Input.dispatchTouchEvent", {
+    type: "touchEnd",
+    touchPoints: [],
+  });
+  await expect
+    .poll(() => grid.evaluate((el) => el.scrollLeft))
+    .toBeGreaterThan(100);
+  const beforeVertical = await page.evaluate(() => scrollY);
+  await cdp.send("Input.dispatchTouchEvent", {
+    type: "touchStart",
+    touchPoints: [{ x: 180, y }],
+  });
+  for (let i = 1; i <= 7; i++) {
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchMove",
+      touchPoints: [{ x: 180, y: y - i * 30 }],
+    });
+    await page.waitForTimeout(30);
+  }
+  await cdp.send("Input.dispatchTouchEvent", {
+    type: "touchEnd",
+    touchPoints: [],
+  });
+  await expect
+    .poll(() => page.evaluate(() => scrollY))
+    .toBeGreaterThan(beforeVertical + 100);
 });
