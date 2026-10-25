@@ -31,9 +31,12 @@ test.describe("phone drink motion", () => {
     expect(
       await page.locator("html").getAttribute("data-permission-calls"),
     ).toBeNull();
-    await page
-      .getByRole("button", { name: "Включить наклон телефона" })
-      .click();
+    await page.locator(".hero-sticker").tap();
+    await expect(page.locator("html")).toHaveAttribute(
+      "data-permission-calls",
+      "1",
+    );
+    await page.locator(".hero-sticker").tap();
     await expect(page.locator("html")).toHaveAttribute(
       "data-permission-calls",
       "1",
@@ -100,9 +103,7 @@ test.describe("phone drink motion", () => {
       }),
     );
     await page.goto("./");
-    await page
-      .getByRole("button", { name: "Включить наклон телефона" })
-      .click();
+    await page.locator(".hero-sticker").tap();
     await expect(page.locator(".tilt-controls")).toContainText(
       "реагирует на касание",
     );
@@ -163,7 +164,7 @@ test.describe("phone drink motion", () => {
       )
       .toBeGreaterThan(2);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await expect(page.locator(".tilt-controls button")).toBeDisabled();
+    await expect(page.locator(".tilt-controls button")).toHaveCount(0);
     await expect(page.locator(".hero-product-float")).toHaveCSS(
       "animation-name",
       "none",

@@ -1,10 +1,8 @@
 export const dictionary = {
   ru: {
-    enableTilt: "Включить наклон телефона",
     tiltReduced: "Движение отключено системной настройкой уменьшения анимации.",
     tiltUnavailable:
       "Браузер не передаёт данные наклона. Попробуй открыть сайт в обычном браузере и разрешить доступ к датчикам в его настройках.",
-    tiltAsking: "Запрашиваю доступ…",
     tiltActive: "Наклоняй телефон - напиток движется вместе с ним.",
     tiltHint: "Наклони телефон или проведи по экрану.",
     tiltDenied: "Доступ к датчикам закрыт. Напиток реагирует на касание.",
@@ -113,11 +111,9 @@ export const dictionary = {
     skip: "Перейти к содержимому",
   },
   en: {
-    enableTilt: "Enable phone tilt",
     tiltReduced: "Motion is disabled by your system's reduced motion setting.",
     tiltUnavailable:
       "No tilt data from this browser. Try opening the site in your regular browser and allowing motion sensors in its settings.",
-    tiltAsking: "Requesting access…",
     tiltActive: "Tilt your phone - your drink follows along.",
     tiltHint: "Tilt your phone or swipe across the screen.",
     tiltDenied: "Sensor access is blocked. Swipe to move the drink.",

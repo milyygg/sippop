@@ -6,7 +6,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Sparkles,
-  Move3d,
 } from "lucide-react";
 import { flavors } from "../data/products";
 import type { Lang } from "../data/products";
@@ -56,6 +55,11 @@ export function Hero({
       aria-label="SIPPOP!"
       onPointerMove={drinkMotion.onPointerMove}
       onPointerLeave={drinkMotion.onPointerLeave}
+      onClickCapture={() => {
+        if (drinkMotion.mobile && drinkMotion.permission === "prompt") {
+          void drinkMotion.requestTilt();
+        }
+      }}
     >
       <div className="hero-topline">
         <span>{t.heroTagline}</span>
@@ -63,15 +67,9 @@ export function Hero({
         <Sparkles size={18} />
       </div>
       {drinkMotion.mobile && (
-        <div className="tilt-controls">
-          <button
-            type="button"
-            onClick={drinkMotion.requestTilt}
-            disabled={reduced || drinkMotion.permission === "asking"}
-          >
-            <Move3d size={16} />
-            {drinkMotion.permission === "asking" ? t.tiltAsking : t.enableTilt}
-          </button>
+        <div
+          className={`tilt-controls ${!drinkMotion.noSensorData && drinkMotion.permission !== "denied" ? "sr-only" : ""}`}
+        >
           <span role="status">
             {reduced
               ? t.tiltReduced

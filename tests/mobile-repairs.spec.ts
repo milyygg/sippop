@@ -75,7 +75,7 @@ test("silent sensors show actionable feedback instead of claiming tilt works", a
   );
   await expect(
     page.getByRole("button", { name: "Включить наклон телефона" }),
-  ).toBeVisible();
+  ).toHaveCount(0);
 });
 
 test("motion-only permission is requested from the user gesture", async ({
@@ -94,11 +94,11 @@ test("motion-only permission is requested from the user gesture", async ({
   await page.goto("./");
   await expect(
     page.getByRole("button", { name: "Включить наклон телефона" }),
-  ).toBeVisible();
+  ).toHaveCount(0);
   expect(
     await page.locator("html").getAttribute("data-motion-permission"),
   ).toBeNull();
-  await page.getByRole("button", { name: "Включить наклон телефона" }).click();
+  await page.locator(".hero-sticker").tap();
   await expect(page.locator("html")).toHaveAttribute(
     "data-motion-permission",
     "requested",
@@ -177,15 +177,13 @@ test("hero preload matches the only selected image and stays below 250 KB", asyn
   expect(downloads).toHaveLength(1);
 });
 
-test("carousel swipes sideways and tilt button is visible without a permission API", async ({
+test("carousel swipes sideways and sensors start without a button or touch", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("./");
   const button = page.getByRole("button", { name: "Включить наклон телефона" });
-  await expect(button).toBeInViewport();
-  await button.click();
-  await expect(button).toBeEnabled();
+  await expect(button).toHaveCount(0);
   await page.evaluate(() =>
     window.dispatchEvent(
       new DeviceMotionEvent("devicemotion", {
