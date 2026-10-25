@@ -1,5 +1,11 @@
 export const dictionary = {
   ru: {
+    enableTilt: "Включить наклон телефона",
+    tiltAsking: "Запрашиваю доступ…",
+    tiltActive: "Наклоняй телефон - напиток движется вместе с ним.",
+    tiltHint: "Наклони телефон или проведи по экрану.",
+    tiltDenied: "Доступ к датчикам закрыт. Напиток реагирует на касание.",
+    touchTiltHint: "Проведи по экрану, чтобы наклонить напиток.",
     heroTagline: "ГЛОТОК. УЛЫБКА. ПОВТОРИ.",
     ticker: "ХОРОШИЙ ВКУС. ЯРКИЙ ДЕНЬ.",
     ribbonFirst: "Хороший вкус.",
@@ -104,6 +110,12 @@ export const dictionary = {
     skip: "Перейти к содержимому",
   },
   en: {
+    enableTilt: "Enable phone tilt",
+    tiltAsking: "Requesting access…",
+    tiltActive: "Tilt your phone - your drink follows along.",
+    tiltHint: "Tilt your phone or swipe across the screen.",
+    tiltDenied: "Sensor access is blocked. Swipe to move the drink.",
+    touchTiltHint: "Swipe across the screen to tilt your drink.",
     heroTagline: "SIPS. SMILES. REPEAT.",
     ticker: "GOOD MOOD. GREAT SIP.",
     ribbonFirst: "Good mood.",

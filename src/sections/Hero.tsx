@@ -1,20 +1,25 @@
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useSpring,
-  useReducedMotion,
-} from "motion/react";
+import { AnimatePresence, motion, useInView } from "motion/react";
+import { useRef, useSyncExternalStore } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
   Sparkles,
+  Move3d,
 } from "lucide-react";
 import { flavors } from "../data/products";
 import type { Lang } from "../data/products";
 import type { Copy } from "../i18n";
+import { useDrinkMotion } from "../hooks/useDrinkMotion";
+import heroImages from "../data/hero-images.json";
+const reducedQuery = () => matchMedia("(prefers-reduced-motion: reduce)");
+const subscribeReduced = (notify: () => void) => {
+  const query = reducedQuery();
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+};
+const getReduced = () => reducedQuery().matches;
 const capPoints = Array.from({ length: 48 }, (_, i) => {
   const angle = (i * Math.PI) / 24 - Math.PI / 2;
   const radius = i % 2 === 0 ? 59 : 54;
@@ -34,25 +39,23 @@ export function Hero({
   moving: boolean;
 }) {
   const f = flavors[active];
-  const reduced = useReducedMotion();
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const x = useSpring(mx, { stiffness: 80, damping: 24 });
-  const y = useSpring(my, { stiffness: 80, damping: 24 });
+  const heroImage = heroImages[f.id as keyof typeof heroImages];
+  const assetBase = `${import.meta.env.BASE_URL}assets/`;
+  const reduced = useSyncExternalStore(
+    subscribeReduced,
+    getReduced,
+    () => true,
+  );
+  const section = useRef<HTMLElement>(null);
+  const inView = useInView(section, { amount: 0.1 });
+  const drinkMotion = useDrinkMotion(moving && !reduced && inView);
   return (
     <section
       className="hero"
+      ref={section}
       aria-label="SIPPOP!"
-      onPointerMove={(e) => {
-        if (e.pointerType !== "mouse" || reduced || !moving) return;
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set((e.clientX - r.left - r.width / 2) * 0.025);
-        my.set((e.clientY - r.top - r.height / 2) * 0.025);
-      }}
-      onPointerLeave={() => {
-        mx.set(0);
-        my.set(0);
-      }}
+      onPointerMove={drinkMotion.onPointerMove}
+      onPointerLeave={drinkMotion.onPointerLeave}
     >
       <div className="hero-topline">
         <span>{t.heroTagline}</span>
@@ -77,26 +80,36 @@ export function Hero({
         </AnimatePresence>
         <motion.div
           className="hero-product-parallax"
-          style={{ x: moving ? x : 0, y: moving ? y : 0 }}
+          style={reduced ? {} : drinkMotion.style}
         >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.img
-              className={`hero-product ${moving ? "floating" : ""}`}
-              key={f.id}
-              src={f.image}
-              width="500"
-              height="650"
-              fetchPriority="high"
-              alt={f.name[lang]}
-              initial={{ opacity: 0, rotate: 8, scale: 0.94, y: 20 }}
-              animate={{ opacity: 1, rotate: -7, scale: 1, y: 0 }}
-              exit={{ opacity: 0, rotate: -10, y: -12 }}
-              transition={{
-                duration: reduced ? 0 : 0.35,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            />
-          </AnimatePresence>
+          <div
+            className={`hero-product-float ${moving && !reduced ? "floating" : ""}`}
+            style={{
+              animationPlayState: drinkMotion.active ? "running" : "paused",
+            }}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.img
+                className="hero-product"
+                key={f.id}
+                src={`${assetBase}${heroImage.small}`}
+                srcSet={`${assetBase}${heroImage.small} ${heroImage.smallWidth}w, ${assetBase}${heroImage.src} ${heroImage.width}w`}
+                sizes="(max-width: 767px) 76vw, (max-width: 1100px) 47vw, (min-width: 1600px) 40vw, 38vw"
+                width={heroImage.width}
+                height={heroImage.height}
+                decoding="async"
+                fetchPriority="high"
+                alt={f.name[lang]}
+                initial={{ opacity: 0, rotate: 8, scale: 0.94, y: 20 }}
+                animate={{ opacity: 1, rotate: -7, scale: 1, y: 0 }}
+                exit={{ opacity: 0, rotate: -10, y: -12 }}
+                transition={{
+                  duration: reduced ? 0 : 0.35,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              />
+            </AnimatePresence>
+          </div>
         </motion.div>
         <div
           className="hero-sticker"
@@ -183,6 +196,33 @@ export function Hero({
           </button>
         </div>
       </div>
+      {drinkMotion.mobile && !reduced && (
+        <div className="tilt-controls">
+          {drinkMotion.permission === "prompt" ||
+          drinkMotion.permission === "asking" ? (
+            <button
+              type="button"
+              onClick={drinkMotion.requestTilt}
+              disabled={drinkMotion.permission === "asking"}
+            >
+              <Move3d size={16} />
+              {drinkMotion.permission === "asking"
+                ? t.tiltAsking
+                : t.enableTilt}
+            </button>
+          ) : (
+            <span role="status">
+              {drinkMotion.permission === "denied"
+                ? t.tiltDenied
+                : drinkMotion.permission === "unavailable"
+                  ? t.touchTiltHint
+                  : drinkMotion.hasSensorData
+                    ? t.tiltActive
+                    : t.tiltHint}
+            </span>
+          )}
+        </div>
+      )}
     </section>
   );
 }
