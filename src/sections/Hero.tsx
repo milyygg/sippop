@@ -93,7 +93,7 @@ export function Hero({
                 className="hero-product"
                 key={f.id}
                 src={`${assetBase}${heroImage.small}`}
-                srcSet={`${assetBase}${heroImage.small} ${heroImage.smallWidth}w, ${assetBase}${heroImage.src} ${heroImage.width}w`}
+                srcSet={`${assetBase}${heroImage.small} ${heroImage.smallWidth}w, ${assetBase}hero-${f.id}-medium.webp 768w, ${assetBase}${heroImage.src} ${heroImage.width}w`}
                 sizes="(max-width: 767px) 76vw, (max-width: 1100px) 47vw, (min-width: 1600px) 40vw, 38vw"
                 width={heroImage.width}
                 height={heroImage.height}
@@ -212,14 +212,21 @@ export function Hero({
             </button>
           ) : (
             <span role="status">
-              {drinkMotion.permission === "denied"
-                ? t.tiltDenied
-                : drinkMotion.permission === "unavailable"
-                  ? t.touchTiltHint
-                  : drinkMotion.hasSensorData
-                    ? t.tiltActive
-                    : t.tiltHint}
+              {drinkMotion.noSensorData
+                ? t.tiltUnavailable
+                : drinkMotion.permission === "denied"
+                  ? t.tiltDenied
+                  : drinkMotion.permission === "unavailable"
+                    ? t.touchTiltHint
+                    : drinkMotion.hasSensorData
+                      ? t.tiltActive
+                      : t.tiltHint}
             </span>
+          )}
+          {drinkMotion.noSensorData && (
+            <button type="button" onClick={drinkMotion.requestTilt}>
+              {t.enableTilt}
+            </button>
           )}
         </div>
       )}

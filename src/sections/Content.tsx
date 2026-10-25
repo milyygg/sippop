@@ -38,6 +38,8 @@ export function FlavorUniverse({
                 width="320"
                 height="420"
                 loading="lazy"
+                decoding="async"
+                draggable={false}
               />
               <div className="flavor-card-heading">
                 <span>{f.name[lang]}</span>

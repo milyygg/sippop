@@ -93,6 +93,12 @@ test.describe("phone drink motion", () => {
         value: () => Promise.resolve("denied"),
       }),
     );
+    await page.addInitScript(() =>
+      Object.defineProperty(DeviceMotionEvent, "requestPermission", {
+        configurable: true,
+        value: undefined,
+      }),
+    );
     await page.goto("./");
     await page
       .getByRole("button", { name: "Включить наклон телефона" })
@@ -104,13 +110,11 @@ test.describe("phone drink motion", () => {
       "animation-name",
       "float",
     );
-    await page
-      .locator(".hero")
-      .dispatchEvent("pointermove", {
-        pointerType: "touch",
-        clientX: 340,
-        clientY: 350,
-      });
+    await page.locator(".hero").dispatchEvent("pointermove", {
+      pointerType: "touch",
+      clientX: 340,
+      clientY: 350,
+    });
     await expect
       .poll(() =>
         page
@@ -126,6 +130,12 @@ test.describe("phone drink motion", () => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.addInitScript(() =>
       Object.defineProperty(DeviceOrientationEvent, "requestPermission", {
+        configurable: true,
+        value: undefined,
+      }),
+    );
+    await page.addInitScript(() =>
+      Object.defineProperty(DeviceMotionEvent, "requestPermission", {
         configurable: true,
         value: undefined,
       }),

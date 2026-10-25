@@ -109,6 +109,10 @@ Use case: product-mockup. Create a NEW high-resolution faithful recreation of th
 
 Use case: product-mockup. Create a NEW high-resolution faithful recreation of the attached reference beverage, preserving the SIPPOP! cup design, recipe, colors and front camera angle, but reconstruct all fine photographic details freshly rather than enlarging the low-resolution pixels. Subject: Clear turquoise sparkling lemon mint lemonade with optically clear ice cubes, a lemon wheel showing sharp translucent citrus segments and rind, crisp mint leaves and blue straw. No milk or cream. Asset: one single full transparent tapered takeaway cup, completely isolated on truly transparent alpha background. Exact front printed black wordmark: "SIPPOP!". Premium editorial studio product photography, sharp authentic texture and droplets, clean anti-aliased silhouette, elegant soft side light. Preserve natural translucent plastic, readable clean branding, rich appetizing color. Absolutely no pixelation, smeared fruit, jagged edge, compression artifacts or artificial over-sharpening halos. Full cup and entire straw fully in frame with generous even 8 percent padding; cup fills about 84 percent of height; centered and upright with no rotation. No table, no cast ground shadow, no background colors, no objects outside the cup. Request a detailed 2K portrait master, 2048 by 3072 pixels. This is one single drink, not a sheet.
 
+## Оптимизация мобильной загрузки, 25.10.2026
+
+Кадры первого экрана пересобраны из сохранённых PNG с WebP quality 82; добавлена ширина 768 пикселей между вариантами 480 и исходным размером. Клубничный кадр: 209032 байта вместо 377694, вариант 480 пикселей: 84358 вместо 137718. Исходники сохранены в qa/hero-masters. Растр не увеличен. Скорость загрузки зависит от сети и кеша браузера.
+
 ## Шрифты
 
 Golos Text и Unbounded получены из Google Fonts. Локальные WOFF2 и тексты SIL Open Font License 1.1 включены в public/fonts. Лицензия допускает использование и распространение шрифтов с сохранением её условий; шрифты не продаются отдельно и не модифицированы.

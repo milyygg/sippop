@@ -1952,29 +1952,30 @@ button:active,
     max-width: 360px;
   }
   .flavor-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+    touch-action: pan-y pinch-zoom;
     gap: 14px;
-    margin-right: -20px;
-    padding-right: 20px;
   }
   .flavor-grid > div {
-    flex: 0 0 68%;
-    scroll-snap-align: start;
-    max-width: 280px;
+    min-width: 0;
   }
   .flavor-card {
-    padding: 24px;
-    min-height: 380px;
+    padding: 20px 10px;
+    min-height: 300px;
+    touch-action: pan-y pinch-zoom;
+    -webkit-user-select: none;
+    user-select: none;
   }
   .flavor-card-heading {
-    font-size: 16px;
+    font-size: 13px;
     margin-top: 12px;
   }
   .flavor-card img {
-    height: 240px;
+    height: 180px;
+    pointer-events: none;
+    -webkit-user-drag: none;
   }
 
   .flavor-card-detail span {

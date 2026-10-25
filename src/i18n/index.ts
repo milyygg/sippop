@@ -1,6 +1,8 @@
 export const dictionary = {
   ru: {
     enableTilt: "Включить наклон телефона",
+    tiltUnavailable:
+      "Браузер не передаёт данные наклона. Попробуй открыть сайт в обычном браузере и разрешить доступ к датчикам в его настройках.",
     tiltAsking: "Запрашиваю доступ…",
     tiltActive: "Наклоняй телефон - напиток движется вместе с ним.",
     tiltHint: "Наклони телефон или проведи по экрану.",
@@ -111,6 +113,8 @@ export const dictionary = {
   },
   en: {
     enableTilt: "Enable phone tilt",
+    tiltUnavailable:
+      "No tilt data from this browser. Try opening the site in your regular browser and allowing motion sensors in its settings.",
     tiltAsking: "Requesting access…",
     tiltActive: "Tilt your phone - your drink follows along.",
     tiltHint: "Tilt your phone or swipe across the screen.",

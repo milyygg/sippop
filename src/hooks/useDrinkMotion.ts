@@ -16,16 +16,26 @@ const sensor = () =>
   typeof DeviceOrientationEvent === "undefined"
     ? undefined
     : (DeviceOrientationEvent as SensorConstructor);
+const motionSensor = () =>
+  typeof DeviceMotionEvent === "undefined"
+    ? undefined
+    : (DeviceMotionEvent as typeof DeviceMotionEvent & {
+        requestPermission?: () => Promise<"granted" | "denied">;
+      });
 
 export function useDrinkMotion(allowed: boolean) {
   const [mobile] = useState(() => matchMedia("(pointer: coarse)").matches);
   const [permission, setPermission] = useState<Permission>(() => {
-    if (!mobile || !window.isSecureContext || !sensor()) return "unavailable";
-    return typeof sensor()?.requestPermission === "function"
+    if (!mobile || !window.isSecureContext || (!sensor() && !motionSensor()))
+      return "unavailable";
+    return typeof sensor()?.requestPermission === "function" ||
+      typeof motionSensor()?.requestPermission === "function"
       ? "prompt"
       : "granted";
   });
   const [hasSensorData, setHasSensorData] = useState(false);
+  const [noSensorData, setNoSensorData] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const visible = useSyncExternalStore(
     subscribeVisibility,
     getVisibility,
@@ -53,6 +63,10 @@ export function useDrinkMotion(allowed: boolean) {
     if (!active || permission !== "granted") return;
     let origin: { beta: number; gamma: number } | null = null;
     let reported = false;
+    let lastOrientation = 0;
+    const timeout = window.setTimeout(() => {
+      if (!reported) setNoSensorData(true);
+    }, 2500);
     const reset = () => {
       origin = null;
       mx.set(0);
@@ -60,6 +74,34 @@ export function useDrinkMotion(allowed: boolean) {
       rx.set(0);
       ry.set(0);
       roll.set(0);
+    };
+    const applyAngles = (beta: number | null, gamma: number | null) => {
+      if (
+        typeof beta !== "number" ||
+        typeof gamma !== "number" ||
+        !Number.isFinite(beta) ||
+        !Number.isFinite(gamma)
+      )
+        return;
+      if (!reported) {
+        reported = true;
+        setHasSensorData(true);
+        setNoSensorData(false);
+      }
+      if (!origin) {
+        origin = { beta, gamma };
+        return;
+      }
+      const value = deviceTilt(
+        angleDelta(beta, origin.beta),
+        angleDelta(gamma, origin.gamma),
+        screen.orientation?.angle ?? 0,
+      );
+      mx.set(value.x);
+      my.set(value.y);
+      rx.set(value.rotateX);
+      ry.set(value.rotateY);
+      roll.set(value.rotate);
     };
     const onOrientation = (event: DeviceOrientationEvent) => {
       if (
@@ -69,46 +111,67 @@ export function useDrinkMotion(allowed: boolean) {
         !Number.isFinite(event.gamma)
       )
         return;
-      if (!reported) {
-        reported = true;
-        setHasSensorData(true);
-      }
-      if (!origin) {
-        origin = { beta: event.beta, gamma: event.gamma };
+      lastOrientation = performance.now();
+      applyAngles(event.beta, event.gamma);
+    };
+    const onMotion = (event: DeviceMotionEvent) => {
+      // Some Android browsers expose gravity data without orientation events.
+      if (lastOrientation && performance.now() - lastOrientation < 1000) return;
+      const gravity = event.accelerationIncludingGravity;
+      if (
+        !gravity ||
+        typeof gravity.x !== "number" ||
+        typeof gravity.y !== "number" ||
+        typeof gravity.z !== "number" ||
+        ![gravity.x, gravity.y, gravity.z].every(Number.isFinite) ||
+        Math.hypot(gravity.x, gravity.y, gravity.z) < 1
+      )
         return;
-      }
-      const value = deviceTilt(
-        angleDelta(event.beta, origin.beta),
-        angleDelta(event.gamma, origin.gamma),
-        screen.orientation?.angle ?? 0,
+      applyAngles(
+        (Math.atan2(gravity.y, gravity.z) * 180) / Math.PI,
+        (Math.atan2(-gravity.x, Math.hypot(gravity.y, gravity.z)) * 180) /
+          Math.PI,
       );
-      mx.set(value.x);
-      my.set(value.y);
-      rx.set(value.rotateX);
-      ry.set(value.rotateY);
-      roll.set(value.rotate);
     };
     window.addEventListener("deviceorientation", onOrientation, {
       passive: true,
     });
     window.addEventListener("orientationchange", reset);
+    window.addEventListener("devicemotion", onMotion, { passive: true });
     screen.orientation?.addEventListener("change", reset);
     return () => {
       window.removeEventListener("deviceorientation", onOrientation);
       window.removeEventListener("orientationchange", reset);
+      window.removeEventListener("devicemotion", onMotion);
+      window.clearTimeout(timeout);
       screen.orientation?.removeEventListener("change", reset);
       reset();
     };
-  }, [active, permission, mx, my, rx, ry, roll]);
+  }, [active, permission, attempt, mx, my, rx, ry, roll]);
 
   async function requestTilt() {
-    const api = sensor();
-    if (!active || !api?.requestPermission) return;
+    if (!active) return;
+    const apis = [sensor(), motionSensor()].filter(
+      (api) => typeof api?.requestPermission === "function",
+    );
+    setNoSensorData(false);
+    setHasSensorData(false);
     setPermission("asking");
     try {
-      setPermission(
-        (await api.requestPermission()) === "granted" ? "granted" : "denied",
+      // Invoke both permission methods in the original user gesture.
+      const results = await Promise.allSettled(
+        apis.map((api) => api!.requestPermission!()),
       );
+      setPermission(
+        !results.length ||
+          results.some(
+            (result) =>
+              result.status === "fulfilled" && result.value === "granted",
+          )
+          ? "granted"
+          : "denied",
+      );
+      setAttempt((value) => value + 1);
     } catch {
       setPermission("denied");
     }
@@ -151,6 +214,7 @@ export function useDrinkMotion(allowed: boolean) {
     mobile,
     permission,
     hasSensorData,
+    noSensorData,
     requestTilt,
     onPointerMove,
     onPointerLeave,

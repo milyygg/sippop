@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#ffb4d2" />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero-strawberry-small.webp"
+      imagesrcset="/assets/hero-strawberry-small.webp 480w, /assets/hero-strawberry-medium.webp 768w, /assets/hero-strawberry.webp 859w"
+      imagesizes="(max-width: 767px) 76vw, (max-width: 1100px) 47vw, (min-width: 1600px) 40vw, 38vw"
+      fetchpriority="high"
+    />
     <script>
       try {
         document.documentElement.dataset.theme =
@@ -28,7 +36,10 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://milyygg.github.io/sippop/" />
     <link rel="canonical" href="https://milyygg.github.io/sippop/" />
-    <meta property="og:image" content="https://milyygg.github.io/sippop/assets/og-cover.png" />
+    <meta
+      property="og:image"
+      content="https://milyygg.github.io/sippop/assets/og-cover.png"
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
@@ -36,4 +47,3 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
