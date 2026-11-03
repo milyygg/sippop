@@ -3,9 +3,13 @@ import { readStored, writeStored } from "../lib/storage";
 import type { Lang } from "../data/products";
 import { dictionary } from "../i18n";
 export function usePreferences() {
-  const [lang, setLang] = useState<Lang>(() =>
-    readStored("sippop-lang") === "en" ? "en" : "ru",
-  );
+  const [lang, setLang] = useState<Lang>(() => {
+    const requested = new URLSearchParams(location.search).get("lang");
+    if (requested === "ru" || requested === "en") return requested;
+    const saved = readStored("miloserdov-language") ?? readStored("sippop-lang");
+    if (saved === "ru" || saved === "en") return saved;
+    return (navigator.languages?.[0] || navigator.language || "en").toLowerCase().startsWith("ru") ? "ru" : "en";
+  });
   const [theme, setTheme] = useState(
     () =>
       readStored("sippop-theme") ??
@@ -13,6 +17,11 @@ export function usePreferences() {
   );
   useEffect(() => {
     document.documentElement.lang = lang;
+    const url = new URL(location.href);
+    if (url.searchParams.has("lang")) {
+      url.searchParams.set("lang", lang);
+      history.replaceState(null, "", url);
+    }
     const t = dictionary[lang];
     document.title = t.seoTitle;
     document
@@ -25,6 +34,7 @@ export function usePreferences() {
       .querySelector('meta[property="og:description"]')
       ?.setAttribute("content", t.seoDescription);
     writeStored("sippop-lang", lang);
+    writeStored("miloserdov-language", lang);
   }, [lang]);
   useEffect(() => {
     document.documentElement.dataset.theme = theme;

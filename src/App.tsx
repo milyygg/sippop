@@ -70,8 +70,9 @@ export default function App() {
                   onClick={() => setLang(lang === "ru" ? "en" : "ru")}
                   aria-label={t.language}
                 >
-                  {lang === "ru" ? "РУ" : "EN"}
-                  <span> / {lang === "ru" ? "АНГ" : "RU"}</span>
+                  <span aria-current={lang === "ru" ? "true" : undefined}>RUS</span>
+                  <span> / </span>
+                  <span aria-current={lang === "en" ? "true" : undefined}>ENG</span>
                 </button>
                 <button
                   className="icon-button theme-toggle"
