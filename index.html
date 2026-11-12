@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#ffb4d2" />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero-strawberry-small.webp"
+      imagesrcset="/assets/hero-strawberry-small.webp 480w, /assets/hero-strawberry-medium.webp 768w, /assets/hero-strawberry.webp 859w"
+      imagesizes="(max-width: 767px) 76vw, (max-width: 1100px) 47vw, (min-width: 1600px) 40vw, 38vw"
+      fetchpriority="high"
+    />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("sippop-theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+      } catch {
+        /* Storage may be disabled. */
+      }
+    </script>
+    <title>SIPPOP! | Пей своё настроение.</title>
+    <meta
+      name="description"
+      content="SIPPOP! Напитки под твоё настроение: милкшейки, смузи, лимонады и матча. Интерактивный концептуальный проект."
+    />
+    <meta property="og:title" content="SIPPOP! Пей своё настроение." />
+    <meta
+      property="og:description"
+      content="Выбери настроение. Найди свой вкус. Концептуальный проект бренда напитков."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://milyygg.github.io/sippop/" />
+    <link rel="canonical" href="https://milyygg.github.io/sippop/" />
+    <meta
+      property="og:image"
+      content="https://milyygg.github.io/sippop/assets/og-cover.png"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

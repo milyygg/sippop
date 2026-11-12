@@ -1,0 +1,37 @@
+{
+  "strawberry": {
+    "src": "hero-strawberry.webp",
+    "small": "hero-strawberry-small.webp",
+    "width": 859,
+    "height": 1477,
+    "smallWidth": 480
+  },
+  "mango": {
+    "src": "hero-mango.webp",
+    "small": "hero-mango-small.webp",
+    "width": 872,
+    "height": 1503,
+    "smallWidth": 480
+  },
+  "matcha": {
+    "src": "hero-matcha.webp",
+    "small": "hero-matcha-small.webp",
+    "width": 873,
+    "height": 1482,
+    "smallWidth": 480
+  },
+  "blueberry": {
+    "src": "hero-blueberry.webp",
+    "small": "hero-blueberry-small.webp",
+    "width": 890,
+    "height": 1506,
+    "smallWidth": 480
+  },
+  "ocean": {
+    "src": "hero-ocean.webp",
+    "small": "hero-ocean-small.webp",
+    "width": 918,
+    "height": 1507,
+    "smallWidth": 480
+  }
+}
